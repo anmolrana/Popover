@@ -56,7 +56,7 @@ open class Popover: UIView {
   open var initialSpringVelocity: CGFloat = 3
   open var sideOffset: CGFloat = 6.0
   open var borderColor: UIColor?
-
+  open var shouldDissmiss: Bool = false
   // custom closure
   open var willShowHandler: (() -> ())?
   open var willDismissHandler: (() -> ())?
@@ -217,6 +217,9 @@ open class Popover: UIView {
   @objc open func dismiss() {
     if self.superview != nil {
       self.willDismissHandler?()
+        if shouldDissmiss {
+            return
+        }
       UIView.animate(withDuration: self.animationOut, delay: 0,
                      options: UIView.AnimationOptions(),
                      animations: {
